@@ -1,31 +1,40 @@
-const handler = require('../api/users');
+const { mockServer, makeExecutableSchema } = require('graphql-tools');
+const { describe, expect, it } = require('jest');
+// const typeDefs = require('./api/schema');
 
-test('should fetch users', () => {
-  const users = [
-    {
-      "id": "c9dbfcb7-6887-4896-90e3-b18c187a8a65",
-      "name": "Jorn"
-    },
-    {
-      "id": "6045e6d7-6a26-4b9f-80a7-0ac86f916e50",
-      "name": "Ronny"
-    },
-    {
-      "id": "9df26cf0-17e1-4e77-9bb1-b971981d988f",
-      "name": "Stefan"
-    }
-  ]
-  const resp = { data: users };
-  axios.get.mockResolvedValue(resp);
+const schema = makeExecutableSchema({typeDefs});
 
-  // or you could use the following depending on your use case:
-  // axios.get.mockImplementation(() => Promise.resolve(resp))
+const userId = 'c9dbfcb7-6887-4896-90e3-b18c187a8a65';
 
-  return Users.all().then(data => expect(data).toEqual(users));
-});
+const mocks = {
+  User: () => ({
+    id: userId,
+  }),
+};
 
-test('correct greeting is generated', () => {
-  expect(handler.listUsers()).toBe(
+const server = mockServer(schema, mocks);
 
-  )
+const query = `
+query {
+  listUsers {
+    id
+  }
+  getUser(userId: $userId) {
+    name
+  }
+}
+`;
+const variables = {
+  userId,
+};
+
+server.query(query, variables).then((response) => {
+  describe('listUsers', () => {
+    it('query should return data', () => {
+      expect(response.data.listUsers).to.have.lengthOf(4);
+    });
+    it('tag name should match the mocked data', () => {
+      expect(response.data.listUsers[0].id).to.equal(userId);
+    });
+  });
 });
