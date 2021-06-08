@@ -5,9 +5,25 @@ provider:
   runtime: nodejs12.x
   stage: ${env:STAGE}
   region: ${env:REGION}
+  iam:
+    role:
+      statements:
+        - Effect: Allow
+          Action:
+            - dynamodb:Query
+            - dynamodb:Scan
+            - dynamodb:GetItem
+            - dynamodb:PutItem
+            - dynamodb:UpdateItem
+            - dynamodb:DeleteItem
+          Resource:
+            - { "Fn::GetAtt": ["UsersDynamoDBTable", "Arn" ] }
   environment:
+    STAGE: ${env:STAGE}
     SECRET_NAME: ${env:SECRET_NAME}
-    SECdRET_ARN: ${env:SECRET_ARN}
+    SECRET_ARN: ${env:SECRET_ARN}
+    USERS_TABLE: 'users-${opt:stage, self:provider.stage}'
+
 
 functions:
   helloWorld:
@@ -17,6 +33,14 @@ functions:
           path: /
           method: get
 
+  createUser:
+    handler: api/users.handler
+    memorySize: 128
+    description: Create a new user
+    events:
+      - http:
+          path: /users/create
+          method: post
   getUser:
     handler: api/users.handler
     memorySize: 128
@@ -33,6 +57,24 @@ functions:
       - http:
           path: /users
           method: get
+
+resources:
+  Resources:
+    UsersDynamoDBTable:
+      Type: 'AWS::DynamoDB::Table'
+      Properties:
+        AttributeDefinitions:
+          -
+            AttributeName: id
+            AttributeType: S
+        KeySchema:
+          -
+            AttributeName: id
+            KeyType: HASH
+        ProvisionedThroughput:
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1
+        TableName: ${self:provider.environment.USERS_TABLE}
 
 plugins:
   - serverless-offline
