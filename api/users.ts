@@ -1,6 +1,5 @@
 import serverless, { Application } from 'serverless-http';
 import express from 'express';
-import AWS from 'aws-sdk';
 
 const app = express();
 

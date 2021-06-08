@@ -1,9 +1,21 @@
-const serverless = require('serverless-http');
-const express = require('express');
+import express from 'express';
+import serverless from 'serverless-http';
+import { ApolloServer } from "apollo-server-express";
+
+import { typeDefs } from './graphql/schema';
+import { resolvers } from './graphql/resolvers';
+
 const app = express();
 
-app.get('/', (req, res) => {
-  res.send('Hello World!')
-})
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
-module.exports.handler = serverless(app);
+const server = new ApolloServer({
+  typeDefs,
+  resolvers,
+});
+
+server.applyMiddleware({ app });
+
+const handler = serverless(app);
+export { handler };
