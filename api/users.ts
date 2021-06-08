@@ -11,20 +11,23 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.get('/users', (req, res) => {
-  res.json([
-    {
-      userId: '1',
-      name: 'Ronny',
-    },
-    {
-      userId: '2',
-      name: 'Stefan',
-    },
-    {
-      userId: '3',
-      name: 'Jorn',
+  const params = {
+    TableName: USERS_TABLE,
+  }
+
+  dynamoDb.scan(params, (error, result) => {
+    if (error) {
+      console.log(error);
+      res.status(400).json({ error: 'Could not get all users' });
     }
-  ]);
+
+    if (result) {
+      const json = result.Items.map((user) => user);
+      res.json(json);
+    } else {
+      res.status(404).json({ error: "Users not found" });
+    }
+  });
 })
 
 app.get('/users/:userId', (req, res) => {
