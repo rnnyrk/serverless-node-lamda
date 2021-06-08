@@ -10,7 +10,7 @@ export const fetchUser = (
     Key: { id },
   }
 
-  return new Promise((resolve, reject) => {
+  return new Promise<i.User>((resolve, reject) => {
     db.get(params, (error, result) => {
       if (error) {
         console.error(error);

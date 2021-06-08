@@ -16,7 +16,7 @@ export const resolvers = {
         throw error;
       }
     },
-    getUser: (_, args) => {
+    getUser: (_, args: Record<'userId', string>) => {
       try {
         return fetchUser(dynamoDb, USERS_TABLE, args.userId);
       } catch (error) {

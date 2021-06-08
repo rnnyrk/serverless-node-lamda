@@ -1,12 +1,12 @@
-import * as i from '../types';
 import { v4 as uuidv4 } from 'uuid';
+import * as i from '../types';
 
 export const postUser = (
   db: i.DatabaseType,
   table: string,
   user: i.User,
 ) => {
-  return new Promise((resolve, reject) => {
+  return new Promise<i.User>((resolve, reject) => {
     const { name } = user;
 
     if (!name || typeof name !== 'string') {

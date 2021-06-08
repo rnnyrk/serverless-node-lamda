@@ -8,7 +8,7 @@ export const fetchUsers = (
     TableName: table,
   }
 
-  return new Promise((resolve, reject) => {
+  return new Promise<i.User[]>((resolve, reject) => {
     db.scan(params, (error, result) => {
       if (error) {
         console.error(error);
@@ -16,7 +16,7 @@ export const fetchUsers = (
       }
 
       if (result) {
-        const users = result.Items.map((user) => user);
+        const users = result.Items.map((user: i.User) => user);
         resolve(users);
       } else {
         reject('Error fetching users');
