@@ -1,15 +1,14 @@
-const serverless = require('serverless-http');
-const express = require('express');
-const AWS = require('aws-sdk');
+import serverless, { Application } from 'serverless-http';
+import express from 'express';
+import AWS from 'aws-sdk';
+
 const app = express();
 
 const USERS_TABLE = process.env.USERS_TABLE;
 const dynamoDb = new AWS.DynamoDB.DocumentClient();
 
 app.use(express.json());
-app.use(express.urlencoded({
-  extended: true
-}));
+app.use(express.urlencoded({ extended: true }));
 
 app.get('/users', (req, res) => {
   res.json([
@@ -54,8 +53,6 @@ app.get('/users/:userId', (req, res) => {
 app.post('/users/create', (req, res) => {
   const { id, name } = req.body;
 
-  console.log({ id, name });
-
   if (typeof id !== 'string') {
     res.status(400).json({ error: '"id" must be a string' });
   } else if (typeof name !== 'string') {
@@ -79,4 +76,4 @@ app.post('/users/create', (req, res) => {
   });
 })
 
-module.exports.handler = serverless(app);
+module.exports.handler = serverless(app as unknown as Application);

@@ -20,8 +20,6 @@ provider:
             - { "Fn::GetAtt": ["UsersDynamoDBTable", "Arn" ] }
   environment:
     STAGE: ${env:STAGE}
-    SECRET_NAME: ${env:SECRET_NAME}
-    SECRET_ARN: ${env:SECRET_ARN}
     USERS_TABLE: 'users-${opt:stage, self:provider.stage}'
 
 
@@ -77,5 +75,6 @@ resources:
         TableName: ${self:provider.environment.USERS_TABLE}
 
 plugins:
-  - serverless-offline
+  - serverless-plugin-typescript
   - serverless-dotenv-plugin
+  - serverless-offline
