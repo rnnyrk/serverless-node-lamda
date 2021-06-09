@@ -22,6 +22,7 @@ provider:
     STAGE: ${env:STAGE}
     NODE_ENV: ${env:NODE_ENV}
     USERS_TABLE: 'users-${opt:stage, self:provider.stage}'
+    QS_TABLE: 'questionnaires-${opt:stage, self:provider.stage}'
 
 
 functions:
@@ -54,6 +55,21 @@ resources:
           ReadCapacityUnits: 1
           WriteCapacityUnits: 1
         TableName: ${self:provider.environment.USERS_TABLE}
+    QuestionnairesDynamoDBTable:
+      Type: 'AWS::DynamoDB::Table'
+      Properties:
+        AttributeDefinitions:
+          -
+            AttributeName: id
+            AttributeType: S
+        KeySchema:
+          -
+            AttributeName: id
+            KeyType: HASH
+        ProvisionedThroughput:
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1
+        TableName: ${self:provider.environment.QS_TABLE}
 
 plugins:
   - serverless-plugin-typescript

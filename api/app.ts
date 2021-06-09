@@ -3,7 +3,9 @@ import cors from 'cors';
 import serverless from 'serverless-http';
 import { ApolloServer } from 'apollo-server-express';
 
-import { typeDefs } from './schema';
+import { Query } from './schema';
+import { Questionnaires } from './questionnaires/schema';
+import { Users } from './users/schema';
 import { resolvers } from './resolvers';
 
 const app = express();
@@ -13,7 +15,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 const server = new ApolloServer({
-  typeDefs,
+  typeDefs: [Query, Users, Questionnaires],
   resolvers,
 });
 
