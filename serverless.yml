@@ -24,7 +24,6 @@ provider:
     USERS_TABLE: 'users-${opt:stage, self:provider.stage}'
     QS_TABLE: 'questionnaires-${opt:stage, self:provider.stage}'
 
-
 functions:
   graphQLAPI:
     handler: api/app.handler
