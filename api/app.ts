@@ -19,21 +19,14 @@ const server = new ApolloServer({
   typeDefs: [Query, Users, Questionnaires],
   resolvers,
   context: ({ req }) => {
-    console.log({
-      // body: req.body,
-      header: req.headers.authorization,
-    });
+    // @TODO verify jwt token?
 
-    // const token = req.headers.authorization || '';
-    // if (!token) {
-    //   throw new AuthenticationError('Required token is missing');
-    // }
+    const token = req.headers.authorization || null;
+    if (!token) {
+      throw new AuthenticationError('Required token is missing');
+    }
 
-    // // try to retrieve a user with the token
-    // const user = loginUser(req.body.username, req.body.password);
-
-    // // add the user to the context
-    // return { user };
+    return { token };
   }
 });
 
