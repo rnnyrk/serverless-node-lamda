@@ -7,10 +7,10 @@ export const postQuestionnaire = (
   questionnaire: i.Questionnaire,
 ) => {
   return new Promise<i.Questionnaire>((resolve, reject) => {
-    const { name, questions } = questionnaire;
+    const { title, questions } = questionnaire;
 
-    if (!name || typeof name !== 'string') {
-      reject('"name" must be a string');
+    if (!title || typeof title !== 'string') {
+      reject('"title" must be a string');
     }
     if (!questions || !Array.isArray(questions)) {
       reject('"questions" is not an array');
@@ -20,7 +20,7 @@ export const postQuestionnaire = (
 
     const params = {
       TableName: table,
-      Item: { id, name, questions },
+      Item: { id, title, questions },
     };
 
     db.put(params, (error) => {
@@ -29,7 +29,7 @@ export const postQuestionnaire = (
         reject('Could not create questionnaire');
       }
 
-      resolve({ id, name, questions });
+      resolve({ id, title, questions });
     });
   })
     .then((response) => response)

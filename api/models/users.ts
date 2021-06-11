@@ -2,8 +2,9 @@ import { gql } from 'apollo-server-express';
 
 export const UsersSchema = gql`
   type User {
-    id: String
+    id: ID!
     name: String
+    email: String
   }
 
   type Query {

@@ -15,6 +15,11 @@ type Question = {
 
 export type Questionnaire = {
   id?: string;
-  name: string;
+  title: string;
+  questions: Question[];
+};
+
+export type CreateQuestionnairePayload = {
+  title: string;
   questions: Question[];
 };
