@@ -1,5 +1,5 @@
-import AWS from 'aws-sdk';
 import * as i from '@types';
+import AWS from 'aws-sdk';
 
 import { fetchUser } from '@controllers/users/fetchUser';
 import { fetchUsers } from '@controllers/users/fetchUsers';
