@@ -19,9 +19,7 @@ const server = new ApolloServer({
   typeDefs: mergeTypeDefs([UsersSchema, QuestionnairesSchema]),
   resolvers: mergeResolvers([UsersResolvers, QuestionnairesResolvers]),
   context: ({ req }) => {
-    // @TODO verify jwt token, get user based on token and return user instead of token?!
-    // https://github.com/awslabs/aws-support-tools/tree/master/Cognito/decode-verify-jwt
-
+    // @TODO 1. verify jwt token
     const token = req.headers.authorization || null;
     if (!token) {
       throw new AuthenticationError('Required token is missing');
