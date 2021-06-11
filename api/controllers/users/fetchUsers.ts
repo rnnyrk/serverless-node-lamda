@@ -1,4 +1,4 @@
-import * as i from '../../types';
+import * as i from '@types';
 
 export const fetchUsers = (
   db: i.DatabaseType,
@@ -6,7 +6,7 @@ export const fetchUsers = (
 ) => {
   const params = {
     TableName: table,
-  }
+  };
 
   return new Promise<i.User[]>((resolve, reject) => {
     db.scan(params, (error, result) => {

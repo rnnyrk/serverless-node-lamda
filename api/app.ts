@@ -4,10 +4,10 @@ import serverless from 'serverless-http';
 import { ApolloServer, AuthenticationError } from 'apollo-server-express';
 import { mergeResolvers, mergeTypeDefs } from '@graphql-tools/merge';
 
-import { UsersResolvers } from './resolvers/users';
-import { QuestionnairesResolvers } from './resolvers/questionnaires';
-import { QuestionnairesSchema } from './models/questionnaires';
-import { UsersSchema } from './models/users';
+import { UsersResolvers } from '@resolvers/users';
+import { QuestionnairesResolvers } from '@resolvers/questionnaires';
+import { QuestionnairesSchema } from '@models/questionnaires';
+import { UsersSchema } from '@models/users';
 
 const app = express();
 
@@ -28,7 +28,7 @@ const server = new ApolloServer({
     }
 
     return { token };
-  }
+  },
 });
 
 server.applyMiddleware({ app });

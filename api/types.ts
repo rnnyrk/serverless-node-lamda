@@ -23,3 +23,7 @@ export type CreateQuestionnairePayload = {
   title: string;
   questions: Question[];
 };
+
+export type ApolloContext = {
+  token: string;
+};

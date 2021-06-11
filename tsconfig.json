@@ -6,7 +6,15 @@
     "resolveJsonModule": true,
     "sourceMap": true,
     "skipLibCheck": true,
-    "target": "es6"
+    "target": "es6",
+    "baseUrl": "./",
+    "paths": {
+      "@controllers/*": ["api/controllers/*"],
+      "@models/*": ["api/models/*"],
+      "@resolvers/*": ["api/resolvers/*"],
+      "@services/*": ["api/services/*"],
+      "@types": ["api/types"],
+    }
   },
   "lib": ["es2015"]
 }

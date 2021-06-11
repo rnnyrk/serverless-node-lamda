@@ -3,7 +3,7 @@ import { gql } from 'apollo-server-express';
 export const QuestionnairesSchema = gql`
   type Question {
     id: ID!
-    text: String
+    text: String!
   }
 
   type Questionnaire {
@@ -17,7 +17,7 @@ export const QuestionnairesSchema = gql`
   }
 
   input QuestionInput {
-    text: String
+    text: String!
   }
 
   type Mutation {

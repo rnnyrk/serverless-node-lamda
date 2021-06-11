@@ -48,27 +48,15 @@
     "import/no-anonymous-default-export": 0,
     "import/no-unresolved": [0],
     "import/named": [0],
-    "import/order": ["error", {
-      "groups": [
-        "builtin",
-        "external",
-        "internal",
-        "index",
-        "parent",
-        "sibling"
-      ],
-      "pathGroups": [{
-        "pattern": "types",
-        "group": "builtin",
-        "position": "before"
-      }]
-    }],
+    "import/order": 0,
 
+    "@typescript-eslint/no-var-requires": 0,
+    "@typescript-eslint/explicit-module-boundary-types": 0,
     "@typescript-eslint/indent": ["error", 2],
     "@typescript-eslint/explicit-function-return-type": 0,
     "@typescript-eslint/no-empty-interface": 0,
     "@typescript-eslint/prefer-interface": 0,
-    "@typescript-eslint/explicit-member-accessibility": [2, "no-public"],
+    "@typescript-eslint/explicit-member-accessibility": "error",
     "@typescript-eslint/no-use-before-define": 0
   }
 }

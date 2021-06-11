@@ -71,6 +71,12 @@ resources:
         TableName: ${self:provider.environment.QS_TABLE}
 
 plugins:
-  - serverless-plugin-typescript
   - serverless-dotenv-plugin
+  - serverless-webpack
   - serverless-offline
+
+custom:
+  webpack:
+    webpackConfig: ./webpack.config.js
+    includeModules: true
+    packager: npm

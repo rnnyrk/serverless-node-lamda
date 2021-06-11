@@ -1,5 +1,5 @@
 import { v4 as uuidv4 } from 'uuid';
-import * as i from '../../types';
+import * as i from '@types';
 
 export const postUser = (
   db: i.DatabaseType,
