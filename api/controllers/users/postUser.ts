@@ -1,5 +1,5 @@
 import { v4 as uuidv4 } from 'uuid';
-import * as i from '../types';
+import * as i from '../../types';
 
 export const postUser = (
   db: i.DatabaseType,
@@ -7,7 +7,7 @@ export const postUser = (
   user: i.User,
 ) => {
   return new Promise<i.User>((resolve, reject) => {
-    const { name } = user;
+    const { name, email } = user;
 
     if (!name || typeof name !== 'string') {
       reject('"name" must be a string');
@@ -17,7 +17,7 @@ export const postUser = (
 
     const params = {
       TableName: table,
-      Item: { id, name },
+      Item: { id, name, email },
     };
 
     db.put(params, (error) => {
@@ -26,7 +26,7 @@ export const postUser = (
         reject('Could not create user');
       }
 
-      resolve({ id, name });
+      resolve({ id, name, email });
     });
   })
     .then((response) => response)

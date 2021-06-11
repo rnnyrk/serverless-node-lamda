@@ -1,13 +1,13 @@
 import AWS from 'aws-sdk';
 
-import { fetchUser } from './users/fetchUser';
-import { fetchUsers } from './users/fetchUsers';
-import { postUser } from './users/postUser';
+import { fetchUser } from '../controllers/users/fetchUser';
+import { fetchUsers } from '../controllers/users/fetchUsers';
+import { postUser } from '../controllers/users/postUser';
 
 const USERS_TABLE = process.env.USERS_TABLE;
 const dynamoDb = new AWS.DynamoDB.DocumentClient();
 
-export const resolvers = {
+export const UsersResolvers = {
   Query: {
     listUsers: (_root, _args, context) => {
       try {
@@ -28,10 +28,12 @@ export const resolvers = {
   },
 
   Mutation: {
-    createUser: (_root, args: Record<'name', string>, context) => {
+    createUser: (_root, args: Record<'name' | 'email', string>, context) => {
       try {
         if (!context.token) return null;
-        return postUser(dynamoDb, USERS_TABLE, { name: args.name });
+
+        const { name, email } = args;
+        return postUser(dynamoDb, USERS_TABLE, { name, email });
       } catch (error) {
         throw error;
       }

@@ -5,6 +5,7 @@ export type DatabaseType = AWS.DynamoDB.DocumentClient;
 export type User = {
   id?: string;
   name: string;
+  email: string;
 };
 
 type Question = {

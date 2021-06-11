@@ -1,4 +1,4 @@
-import * as i from '../types';
+import * as i from '../../types';
 
 export const fetchUser = (
   db: i.DatabaseType,
@@ -18,8 +18,8 @@ export const fetchUser = (
       }
 
       if (result.Item) {
-        const { id, name } = result.Item;
-        resolve({ id, name });
+        const { id, name, email } = result.Item;
+        resolve({ id, name, email });
       } else {
         reject('User not found');
       }

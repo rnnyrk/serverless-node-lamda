@@ -1,6 +1,11 @@
 import { gql } from 'apollo-server-express';
 
-export const Query = gql`
+export const UsersSchema = gql`
+  type User {
+    id: String
+    name: String
+  }
+
   type Query {
     getUser(userId: String!): User
     listUsers: [User]

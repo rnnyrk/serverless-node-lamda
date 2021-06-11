@@ -1,6 +1,6 @@
 import { gql } from 'apollo-server-express';
 
-export const Questionnaires = gql`
+export const QuestionnairesSchema = gql`
   type Question {
     id: String
     text: String
