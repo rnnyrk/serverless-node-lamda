@@ -5,6 +5,7 @@ export const UsersSchema = gql`
     id: ID!
     name: String
     email: String
+    city: String
   }
 
   type Query {
@@ -13,6 +14,6 @@ export const UsersSchema = gql`
   }
 
   type Mutation {
-    createUser(name: String!): User
+    createUser(name: String!, email: String!, city: String!): User
   },
 `;

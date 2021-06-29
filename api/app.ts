@@ -19,7 +19,7 @@ const server = new ApolloServer({
   typeDefs: mergeTypeDefs([UsersSchema, QuestionnairesSchema]),
   resolvers: mergeResolvers([UsersResolvers, QuestionnairesResolvers]),
   context: ({ req }) => {
-    // @TODO 1. verify jwt token
+    // @TODO 1. verify jwt token Bearer + PassportJS?
     const token = req.headers.authorization || null;
     if (!token) {
       throw new AuthenticationError('Required token is missing');

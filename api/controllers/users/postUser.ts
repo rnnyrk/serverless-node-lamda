@@ -7,7 +7,7 @@ export const postUser = (
   user: i.User,
 ) => {
   return new Promise<i.User>((resolve, reject) => {
-    const { name, email } = user;
+    const { name, email, city } = user;
 
     if (!name || typeof name !== 'string') {
       reject('"name" must be a string');
@@ -26,7 +26,7 @@ export const postUser = (
         reject('Could not create user');
       }
 
-      resolve({ id, name, email });
+      resolve({ id, name, email, city });
     });
   })
     .then((response) => response)

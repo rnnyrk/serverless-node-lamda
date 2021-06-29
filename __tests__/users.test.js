@@ -1,8 +1,8 @@
 const { mockServer, makeExecutableSchema } = require('graphql-tools');
 const { describe, expect, it } = require('jest');
-// const typeDefs = require('./api/schema');
+const typeDefs = require('./api/schema');
 
-const schema = makeExecutableSchema({typeDefs});
+const schema = makeExecutableSchema({ typeDefs });
 
 const userId = 'c9dbfcb7-6887-4896-90e3-b18c187a8a65';
 

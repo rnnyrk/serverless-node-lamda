@@ -30,12 +30,12 @@ export const UsersResolvers = {
   },
 
   Mutation: {
-    createUser: (parent: void, args: Record<'name' | 'email', string>, context: i.ApolloContext) => {
+    createUser: (parent: void, args: Record<'name' | 'email' | 'city', string>, context: i.ApolloContext) => {
       try {
         if (!context.token) return null;
 
-        const { name, email } = args;
-        return postUser(dynamoDb, USERS_TABLE, { name, email });
+        const { name, email, city } = args;
+        return postUser(dynamoDb, USERS_TABLE, { name, email, city });
       } catch (error) {
         handleError(error);
       }
