@@ -22,6 +22,13 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+/** Token verification process **/
+// https://docs.aws.amazon.com/cognito/latest/developerguide/amazon-cognito-user-pools-using-tokens-verifying-a-jwt.html
+
+// Request JWK from Cognito
+const { REGION, USER_POOL_ID } = cognitoCfg[process.env.NODE_ENV || 'development'];
+const jwkUrl = `https://cognito-idp.${REGION}.amazonaws.com/${USER_POOL_ID}/.well-known/jwks.json`;
+
 const server = new ApolloServer({
   typeDefs: mergeTypeDefs([UsersSchema, QuestionnairesSchema]),
   resolvers: mergeResolvers([UsersResolvers, QuestionnairesResolvers]),
@@ -33,15 +40,8 @@ const server = new ApolloServer({
       return res.send(status.UNAUTHORIZED);
     }
 
-    /** Token verification process **/
-    // https://docs.aws.amazon.com/cognito/latest/developerguide/amazon-cognito-user-pools-using-tokens-verifying-a-jwt.html
-
-    // Request JWK from Cognito
-    const { REGION, USER_POOL_ID } = cognitoCfg[process.env.NODE_ENV || 'development'];
-    const jwkUrl = `https://cognito-idp.${REGION}.amazonaws.com/${USER_POOL_ID}/.well-known/jwks.json`;
     const jwkResult = await fetch(jwkUrl);
     const jwkJson = await jwkResult.json() as i.CognitoJWKResult | undefined;
-
     if (!jwkJson) {
       return res.send(status.INTERNAL_SERVER_ERROR);
     }
@@ -56,12 +56,16 @@ const server = new ApolloServer({
     const pem = jwkToPem(jwk);
 
     // Verify token with the PEM
-    jwt.verify(token, pem, { algorithms: ['RS256'] }, (err, token) => {
+    jwt.verify(token, pem, { algorithms: ['RS256'] }, (err, payload) => {
       if (err) {
         return res.send(status.UNAUTHORIZED);
       }
 
-      return { token };
+      return {
+        email: payload.email,
+        email_verified: payload.email_verified,
+        phone_number: payload.phone_number,
+      };
     });
   },
 });

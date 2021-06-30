@@ -12,7 +12,6 @@ export const QuestionnairesResolvers = {
   Query: {
     listQuestionnaires: (parent: void, args: void, context: i.ApolloContext) => {
       try {
-        if (!context.token) return null;
         return fetchQuestionnaires(dynamoDb, QS_TABLE);
       } catch (error) {
         handleError(error);
@@ -23,8 +22,6 @@ export const QuestionnairesResolvers = {
   Mutation: {
     createQuestionnaire: (parent: void, args: i.CreateQuestionnairePayload, context: i.ApolloContext) => {
       try {
-        if (!context.token) return null;
-
         const { title, questions } = args;
         return postQuestionnaire(dynamoDb, QS_TABLE, { title, questions });
       } catch (error) {

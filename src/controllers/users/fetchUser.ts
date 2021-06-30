@@ -18,8 +18,8 @@ export const fetchUser = (
       }
 
       if (result.Item) {
-        const { id, name, email } = result.Item;
-        resolve({ id, name, email });
+        const { id, name, email, city } = result.Item;
+        resolve({ id, name, email, city });
       } else {
         reject('User not found');
       }

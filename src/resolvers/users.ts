@@ -13,7 +13,6 @@ export const UsersResolvers = {
   Query: {
     listUsers: (parent: void, args: void, context: i.ApolloContext) => {
       try {
-        if (!context.token) return null;
         return fetchUsers(dynamoDb, USERS_TABLE);
       } catch (error) {
         handleError(error);
@@ -21,7 +20,6 @@ export const UsersResolvers = {
     },
     getUser: (parent: void, args: Record<'userId', string>, context: i.ApolloContext) => {
       try {
-        if (!context.token) return null;
         return fetchUser(dynamoDb, USERS_TABLE, args.userId);
       } catch (error) {
         handleError(error);
@@ -32,8 +30,6 @@ export const UsersResolvers = {
   Mutation: {
     createUser: (parent: void, args: Record<'name' | 'email' | 'city', string>, context: i.ApolloContext) => {
       try {
-        if (!context.token) return null;
-
         const { name, email, city } = args;
         return postUser(dynamoDb, USERS_TABLE, { name, email, city });
       } catch (error) {
