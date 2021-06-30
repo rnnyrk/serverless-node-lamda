@@ -26,7 +26,7 @@ provider:
 
 functions:
   graphQLAPI:
-    handler: api/app.handler
+    handler: src/app.handler
     events:
       - http:
           path: graphql

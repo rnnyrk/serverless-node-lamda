@@ -28,3 +28,16 @@ export type CreateQuestionnairePayload = {
 export type ApolloContext = {
   token: string;
 };
+
+export type CognitoJWK = {
+  alg: string;
+  e: string;
+  kid: string;
+  kty: 'RSA';
+  n: string;
+  use: string;
+}
+
+export type CognitoJWKResult = {
+  keys: CognitoJWK[];
+}

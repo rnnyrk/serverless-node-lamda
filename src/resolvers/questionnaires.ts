@@ -1,9 +1,9 @@
-import * as i from '@types';
+import * as i from 'types';
 import AWS from 'aws-sdk';
 
-import { fetchQuestionnaires } from '@controllers/questionnaires/fetchQuestionnaires';
-import { postQuestionnaire } from '@controllers/questionnaires/postQuestionnaire';
-import { handleError } from '@services/handleError';
+import { fetchQuestionnaires } from 'controllers/questionnaires/fetchQuestionnaires';
+import { postQuestionnaire } from 'controllers/questionnaires/postQuestionnaire';
+import { handleError } from 'services/handleError';
 
 const QS_TABLE = process.env.QS_TABLE;
 const dynamoDb = new AWS.DynamoDB.DocumentClient();

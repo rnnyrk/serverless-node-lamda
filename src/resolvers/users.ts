@@ -1,10 +1,10 @@
-import * as i from '@types';
+import * as i from 'types';
 import AWS from 'aws-sdk';
 
-import { fetchUser } from '@controllers/users/fetchUser';
-import { fetchUsers } from '@controllers/users/fetchUsers';
-import { postUser } from '@controllers/users/postUser';
-import { handleError } from '@services/handleError';
+import { fetchUser } from 'controllers/users/fetchUser';
+import { fetchUsers } from 'controllers/users/fetchUsers';
+import { postUser } from 'controllers/users/postUser';
+import { handleError } from 'services/handleError';
 
 const USERS_TABLE = process.env.USERS_TABLE;
 const dynamoDb = new AWS.DynamoDB.DocumentClient();

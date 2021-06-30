@@ -18,3 +18,5 @@ ehthumbs.db
 Thumbs.db
 npm-debug.log
 stats.json
+
+cognito.json
